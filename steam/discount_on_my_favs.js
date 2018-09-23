@@ -4,9 +4,9 @@ var data = [];
 for (var code in g_rgAppInfo) {
 	var el = g_rgAppInfo[code];
   
-  if (el.subs && el.subs.length > 0 && el.subs[0].discount_pct > 0) {
-    data.push({name: el.name, price: el.subs[0].price, discount: el.subs[0].discount_pct});
-  }
+	if (el.subs && el.subs.length > 0 && el.subs[0].discount_pct > 0) {
+		data.push({name: el.name, price: el.subs[0].price, discount: el.subs[0].discount_pct});
+	}
 }
 
 data.sort((a,b) => (a.price < b.price) ? 1 : ((b.price < a.price) ? -1 : 0));

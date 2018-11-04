@@ -10,21 +10,24 @@ function log_state {
 }
 
 function run_script {
-    log_state START "$1";
 
-    echo "$2 ./$1.$3 >>./log/$1.log 2>>./log/$1.err";
+    name=`echo -en "$1" | sed 's/\..*//gi'`;
 
-    $2 "./$1.$3" >>"./log/$1.log" 2>>"./log/$1.err";
+    log_state START "$name";
 
-    log_state FINISH "$1";
+    echo "$2 ./$name.$3 "${@:4}" >>./log/$name.log 2>>./log/$name.err";
+
+    $2 "./$name.$3" "${@:4}" >>"./log/$name.log" 2>>"./log/$name.err";
+
+    log_state FINISH "$name";
 }
 
 function run_node {
-    run_script "$1" "node" "js"
+    run_script "$1" "node" "js" "${@:2}"
 }
 
 function run_bash {
-    run_script "$1" "bash" "sh"
+    run_script "$1" "bash" "sh" "${@:2}"
 }
 
 echo "util_run.sh LOADED :)"
